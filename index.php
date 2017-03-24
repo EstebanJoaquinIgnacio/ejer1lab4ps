@@ -2,7 +2,7 @@
 	require_once "Personas.php";
 
 	/*$unaPersona = new Persona();
-	$unaPersona->SetId(13);
+	$unaPersona->SetId(16);
 	$unaPersona->SetApellido("Delavega");
 	$unaPersona->SetNombre("pepepepe");		
 	Persona::ModificarPersona($unaPersona);*/
@@ -21,9 +21,22 @@
 	require 'vendor/autoload.php';
 
 	$app = new \Slim\App;
+
+	$app->put('/persona/login', function ($request,$res) {
+		$unaPersona = new Persona();		
+		$unaPersona->SetApellido($request->getParam('apellido'));
+		$unaPersona->SetDni($request->getParam('dni'));
+		
+		return $res    
+           ->write(json_encode(Persona::consultarPersona($unaPersona))
+		   );
+
+	});
+
 	$app->get('/', function (Request $request, Response $response) {
 				 			
-		$mbd = new PDO('mysql:host=localhost;dbname=pps', 'root', '');		
+		$mbd = new PDO('mysql:host=mysql.hostinger.com.ar;dbname=u991289493_pps;charset=utf8', 'u991289493_joako', '29990032', 
+            array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));		
 						
 		//$tabla = '<table class="table"><thead style="background:rgb(14, 26, 112);color:#fff;"><tr><th>  ID </th>	<th>  NOMBRE  </th>	<th> APELLIDO </th>	<th>  DNI </th></tr> </thead>';
 					
@@ -76,6 +89,8 @@
 		return $res    
            ->write(Persona::ModificarPersona($unaPersona)
 		   );
+
+
 		          
         
 	});
@@ -196,4 +211,4 @@
 
 
 	</body>
-</html>
+</html>					

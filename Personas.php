@@ -1,5 +1,5 @@
 <?php
-require_once"accesoDatos.php";
+require_once "AccesoDatos.php";
 class Persona
 {
 //--------------------------------------------------------------------------------//
@@ -103,9 +103,9 @@ class Persona
 			$consulta =$objetoAccesoDato->RetornarConsulta("
 				update persona 
 				set nombre=:nombre,
-				apellido=:apellido,
+				apellido=:apellido
 				WHERE id=:id");
-			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+			//$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 			//$consulta =$objetoAccesoDato->RetornarConsulta("CALL ModificarPersona(:id,:nombre,:apellido)");
 			$consulta->bindValue(':id',$persona->id, PDO::PARAM_INT);
 			$consulta->bindValue(':nombre',$persona->nombre, PDO::PARAM_STR);
@@ -125,4 +125,17 @@ class Persona
 		$consulta->execute();
 		return $objetoAccesoDato->RetornarUltimoIdInsertado();
 	}	
+
+	public static function consultarPersona($persona)
+	{
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+			$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM persona 				
+				WHERE dni=:dni AND apellido=:apellido");			
+			$consulta->bindValue(':apellido', $persona->apellido, PDO::PARAM_STR);
+			$consulta->bindValue(':dni', $persona->dni, PDO::PARAM_STR);
+			$consulta->execute();
+		$personaBuscada= $consulta->fetchObject('persona');
+		return $personaBuscada;
+				
+	}
 }
