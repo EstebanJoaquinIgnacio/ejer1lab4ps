@@ -1,0 +1,132 @@
+<html>
+	<title>
+
+	</title>
+	<head>
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript">			
+
+		function Subir()
+		{
+			var unJSON = {"id" : document.getElementById("id").value,
+						  "titulo" : document.getElementById("titulo").value,
+						  "size" : document.getElementById("size").value,
+						  "precio" : document.getElementById("precio").value
+						  };
+			
+			alert(unJSON);
+
+			$.ajax({
+						type:"POST",
+						dataType: "text",
+						url:"administrarRemeras.php",
+						data: {miJSON : unJSON}
+					})
+					.done(function(respuesta){
+						
+						if(respuesta.exito)
+							alert("se agrego correctamente");
+
+						console.log(respuesta);						
+
+						
+
+					})
+					.fail(function(error){
+						alert("hay un error");
+						alert(error.errorThrown);
+
+					});				
+
+
+		}	
+
+		function Mostrar()
+		{		
+			
+
+			$.ajax({
+						type:"POST",
+						dataType: "text",
+						url:"mostrar.php",
+						data: {}
+					})
+					.done(function(respuesta){
+						
+						alert(respuesta);
+
+					})
+					.fail(function(error){
+						alert("hay un error");
+						alert(error.errorThrown);
+
+					});		
+					
+		}	
+		
+		function usoGet()
+		{			
+			
+			$.ajax({
+						type:"GET",
+						dataType: "text",
+						url:"http://localhost:8080/slimlocal/index.php/personas",
+						data: {}
+					})
+					.done(function(respuesta){
+						
+						alert(respuesta);
+
+					})
+					.fail(function(error){
+						alert("hay un error");
+						alert(error.errorThrown);
+
+					});		
+			
+					
+		}
+
+		function hola()
+		{
+			alert("hola");
+		}
+		
+
+		</script>
+	</head>
+	<body>
+		
+			<form action="http://localhost:8080/slimlocal/index.php/personas">
+                <input type="submit" value="GetPorForm">
+            </form>
+
+            <form action="http://localhost:8080/slimlocal/index.php/persona">
+                Buscar por ID:<br>
+                <input type="text" name="id"><br>
+                <input type="submit" value="GetPorForm">
+            </form>
+            
+            <br><input type="button" value="Mostrar" onclick="Mostrar()" /> <br>			
+			<input type="button" value="get" onclick="usoGet()" /> <br>			
+			<input type="button" value="put" onclick="Put()" /> <br>
+			<input type="button" value="delete" onclick="Delete()" /> <br>
+			<input type="button" value="post" onclick="Post()" /> <br>
+			<input type="button" value="HOLA" onclick="hola()" /> <br>
+
+			<label for="id">ID</label>
+			<input type="Text" id="id"/><br>
+
+			<label for="nombre">NOMBRE</label>
+			<input type="Text" id="nombre"/><br>
+
+			<label for="apellido">APELLIDO</label>
+			<input type="Text" id="apellido"/><br>
+
+			<label for="dni">DNI</label>
+			<input type="Text" id="dni"/><br>	
+
+
+
+	</body>
+</html>					
