@@ -1,5 +1,5 @@
 <?php
-require_once "AccesoDatos.php";
+require_once"accesoDatos.php";
 class Persona
 {
 //--------------------------------------------------------------------------------//
@@ -138,4 +138,16 @@ class Persona
 		return $personaBuscada;
 				
 	}
+
+	/*public static function Logear($persona)
+	{ 
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM persona WHERE dni =:dni AND nombre =:nombre");
+		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerUnaPersona(:id)");
+		$consulta->bindValue(':nombre', $persona->nombre, PDO::PARAM_STR);
+		$consulta->bindValue(':dni', $persona->dni, PDO::PARAM_STR);
+		$consulta->execute();
+		$personaBuscada= $consulta->fetchObject('persona');
+		return $personaBuscada;     
+	}*/
 }

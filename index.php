@@ -2,7 +2,7 @@
 	require_once "Personas.php";
 
 	/*$unaPersona = new Persona();
-	$unaPersona->SetId(16);
+	$unaPersona->SetId(13);
 	$unaPersona->SetApellido("Delavega");
 	$unaPersona->SetNombre("pepepepe");		
 	Persona::ModificarPersona($unaPersona);*/
@@ -22,7 +22,7 @@
 
 	$app = new \Slim\App;
 
-	$app->post('/persona/login', function ($request,$res) {
+	$app->put('/persona/login', function ($request,$res) {
 		$unaPersona = new Persona();		
 		$unaPersona->SetApellido($request->getParam('apellido'));
 		$unaPersona->SetDni($request->getParam('dni'));
@@ -33,10 +33,9 @@
 
 	});
 
-	$app->get('/personas', function (Request $request, Response $response) {
+	$app->get('/', function (Request $request, Response $response) {
 				 			
-		$mbd = new PDO('mysql:host=localhost;dbname=pps;charset=utf8', 'root', '', 
-            array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));		
+		$mbd = new PDO('mysql:host=localhost;dbname=pps', 'root', '');		
 						
 		//$tabla = '<table class="table"><thead style="background:rgb(14, 26, 112);color:#fff;"><tr><th>  ID </th>	<th>  NOMBRE  </th>	<th> APELLIDO </th>	<th>  DNI </th></tr> </thead>';
 					
@@ -56,15 +55,15 @@
 		return $response;
 	});
 
-	$app->get('/persona'/*/{id}'*/, function (Request $request, Response $response) {
+	$app->get('/persona/{id}', function (Request $request, Response $response) {
 		$id = $request->getAttribute('id');
 		$persona = Persona::TraerUnaPersona($id);
-		$response->getBody()->write($persona);
+		$response->getBody()->write($persona->toString());
 
 		return $response;
 	});
 
-	$app->delete('/persona/borrar'/*{id}'*/, function ($request,$res) {
+	$app->delete('/persona/borrar/{id}', function ($request,$res) {
         return $res           
            ->write(Persona::BorrarPersona($request->getAttribute('id'))            
         );
@@ -89,8 +88,6 @@
 		return $res    
            ->write(Persona::ModificarPersona($unaPersona)
 		   );
-
-
 		          
         
 	});
@@ -99,8 +96,7 @@
 
 ?>
 
-
-	<html>
+<html>
 	<title>
 
 	</title>
@@ -144,9 +140,7 @@
 		}	
 
 		function Mostrar()
-		{		
-			
-
+		{			
 			$.ajax({
 						type:"POST",
 						dataType: "text",
@@ -164,47 +158,40 @@
 
 					});		
 					
-		}	
-		
+		}
+
 		function usoGet()
 		{			
 			
-			$.ajax({
-						type:"GET",
+			/*$.ajax({
+						type:"POST",
 						dataType: "text",
-						url:"http://localhost:8080/slimlocal/index.php/personas",
+						url:"get.php",
 						data: {}
 					})
 					.done(function(respuesta){
 						
-						alert(respuesta);
+						window.locationf="http://localhost/ABM-Login-PDO/index.php/hola/pedro";	
 
 					})
 					.fail(function(error){
 						alert("hay un error");
 						alert(error.errorThrown);
 
-					});		
+					});*/		
 			
 					
 		}
-
-		function hola()
-		{
-			alert("hola");
-		}
-		
 
 		</script>
 	</head>
 	<body>
 		
-			<br><input type="button" value="Mostrar" onclick="Mostrar()" /> <br>			
-			<input type="button" value="get" onclick="usoGet()" /> <br>			
+			<br><input type="button" value="Mostrar" onclick="Mostrar()" /> <br>
+			<input type="button" value="get" onclick="usoGet()" /> <br>
 			<input type="button" value="put" onclick="Put()" /> <br>
 			<input type="button" value="delete" onclick="Delete()" /> <br>
 			<input type="button" value="post" onclick="Post()" /> <br>
-			<input type="button" value="HOLA" onclick="hola()" /> <br>
 
 			<label for="id">ID</label>
 			<input type="Text" id="id"/><br>
