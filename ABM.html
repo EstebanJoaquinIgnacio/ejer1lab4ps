@@ -1,0 +1,44 @@
+<html>
+	<title>
+
+	</title>
+	<head>
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" src="funciones.js"></script>
+	</head>
+	<body>
+
+			<form action="http://localhost/Lab4PPS/ABM-Login-PDO-local/index.php/persona/login" method="post">
+                Login:<br>
+                <input type="text" name="apellido" placeholder="Apellido"><br>
+				<input type="password" name="dni" placeholder="Dni"><br>
+                <input type="submit" value="Loguiar">
+            </form>
+		
+			<form action="http://localhost/Lab4PPS/ABM-Login-PDO-local/index.php/personas">
+                <input type="submit" value="Taer Personas">
+            </form>
+
+            <form action="http://localhost/Lab4PPS/ABM-Login-PDO-local/index.php/persona" method="get">
+                Buscar por ID:<br>
+                <input type="text" name="id" placeholder="id"><br>
+                <input type="submit" value="Traer Una persona">
+            </form>          
+			
+            <input type="button" value="Mostrar" onclick="Mostrar()" /> <br>			
+			<input type="button" value="Get por Ajax" onclick="usoGet()" /> <br>		
+
+		<div>
+			
+			<input type="Text" id="idDiv" placeholder="id"/><br>			
+			<input type="Text" id="nombreDiv" placeholder="nombre"/><br>			
+			<input type="Text" id="apellidoDiv" placeholder="apellido"/><br>		
+			<input type="Text" id="dniDiv" placeholder="dni"/><br>
+
+			<input type="button" value="Agregar" onclick="agregar()"/> 
+			<input type="button" value="Modificar" onclick="modificar()"/>
+			<input type="button" value="Borrar" onclick="borrar()"/> 	
+		</div>
+
+	</body>
+</html>					
